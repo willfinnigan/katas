@@ -7,9 +7,9 @@ Initially I found wanted to write tests against the validate method,
 but this was tricky to do incrementally because the first test would become 
 invalid against the next rule on, unless the test cases already passed all conditions.  
 
-So instead started testing each condition individually ([test_rules.py](password_validation/tests/test_rules.py)).  
+So instead started testing each condition individually ([test_rules.py](tests/test_rules.py)).  
 This worked well - but ultimately these seem a bit redundant once started testing 
-the validate method ([test_password_validation.py](password_validation/tests/test_password_validation.py)).  
+the validate method ([test_password_validation.py](tests/test_password_validation.py)).  
 
 ## Design
 In the first implementation, the rules were all hard coded into the validate method.   
