@@ -1,6 +1,6 @@
 # Password Validation
-https://www.codurance.com/katalyst/password-validation
-https://www.meetup.com/software-crafters-north/
+https://www.codurance.com/katalyst/password-validation      
+https://www.meetup.com/software-crafters-north/  
 
 ## TTD notes
 Initially I found wanted to write tests against the validate method, 
