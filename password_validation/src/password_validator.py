@@ -8,15 +8,18 @@ class PasswordValidator():
     def add_rule(self, rule, *args):
         self.rules.append((rule, args))
 
-    def _number_of_failed_rules(self, password):
-        count = 0
-        for rule, args in self.rules:
-            if not rule(password, *args):
-                count += 1
-        return count
+    def number_of_failed_rules(self, password):
+        """Returns the number of failed rules"""
+        evaluated_rules = self.evaluate_rules(password)
+        return evaluated_rules.count(False)
+
+    def evaluate_rules(self, password):
+        """Returns a list of True/False for rules which pass/fail"""
+        return [rule(password, *args) for (rule, args) in self.rules]
 
     def validate(self, password):
-        if self._number_of_failed_rules(password) > self.allowed_fails:
+        """Returns True if password passes validation"""
+        if self.number_of_failed_rules(password) > self.allowed_fails:
             return False
         return True
 

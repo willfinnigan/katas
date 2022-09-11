@@ -32,7 +32,7 @@ def test_password_with_a_number_passes():
     assert has_a_number('Hello1') is True
 
 def test_password_with_underscore_passes():
-    assert has_a_uenderscore('I_have_underscores') is True
+    assert has_a_underscore('I_have_underscores') is True
 
 def test_password_without_underscore_fails():
     assert has_a_underscore('I have no underscores') is False
