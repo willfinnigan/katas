@@ -1,9 +1,15 @@
+from typing import Callable
+
+Rule = Callable[[str], bool]
 
 def has_characters(password):
     return password != ''
 
-def has_more_than_or_equal_n_chars(password, n):
-    return len(password) >= n
+# use a closure to handle additional argument
+def create_has_more_than_n_chars_rule(n):
+    def has_more_than_or_equal_n_chars(password):
+        return len(password) >= n
+    return has_more_than_or_equal_n_chars
 
 def has_a_capital(password):
     for l in password:

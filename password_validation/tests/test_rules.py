@@ -1,5 +1,6 @@
-from password_validation.src.rules import has_characters, has_more_than_or_equal_n_chars, has_a_capital, has_a_lower, \
-    has_a_number, has_a_underscore
+from password_validation.src.rules import has_characters, has_a_capital, has_a_lower, \
+    has_a_number, has_a_underscore, create_has_more_than_n_chars_rule
+
 
 def test_empty_password_fails_has_characters():
     assert has_characters('') is False
@@ -8,10 +9,12 @@ def test_password_passes_has_characters():
     assert has_characters('not_empty') is True
 
 def test_password_with_less_than_8_chars_fails():
-    assert has_more_than_or_equal_n_chars('1234', 8) is False
+    has_more_than_or_equal_8_chars = create_has_more_than_n_chars_rule(8)
+    assert has_more_than_or_equal_8_chars('1234') is False
 
 def test_password_with_8_chars_passes():
-    assert has_more_than_or_equal_n_chars('12345678', 8) is True
+    has_more_than_or_equal_8_chars = create_has_more_than_n_chars_rule(8)
+    assert has_more_than_or_equal_8_chars('12345678') is True
 
 def test_password_with_a_capital_passes():
     assert has_a_capital('Hello') is True

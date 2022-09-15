@@ -1,11 +1,11 @@
 import pytest
 from password_validation.src.password_validator import PasswordValidator
 from password_validation.src.rules import (has_characters,
-                                           has_more_than_or_equal_n_chars,
                                            has_a_number,
                                            has_a_underscore,
                                            has_a_lower,
-                                           has_a_capital)
+                                           has_a_capital,
+                                           create_has_more_than_n_chars_rule)
 
 test_cases = [('Password1_', True),   # passes all conditions
               ('AlsoPassesAll2_', True),   # passes all conditions
@@ -21,7 +21,7 @@ test_cases = [('Password1_', True),   # passes all conditions
 def test_validator(password, expected):
     validator = PasswordValidator()
     validator.add_rule(has_characters)
-    validator.add_rule(has_more_than_or_equal_n_chars, 8)
+    validator.add_rule(create_has_more_than_n_chars_rule(8))
     validator.add_rule(has_a_capital)
     validator.add_rule(has_a_lower)
     validator.add_rule(has_a_number)
@@ -40,7 +40,7 @@ test_cases_2 = [('Password1', True),   # passes all conditions
 @pytest.mark.parametrize('password, expected', test_cases_2)
 def test_validator_two(password, expected):
     validator = PasswordValidator()
-    validator.add_rule(has_more_than_or_equal_n_chars, 6)
+    validator.add_rule(create_has_more_than_n_chars_rule(6))
     validator.add_rule(has_a_capital)
     validator.add_rule(has_a_lower)
     validator.add_rule(has_a_number)
@@ -58,7 +58,7 @@ test_cases_3 = [('Password_with_more_than_sixteen', True),   # passes all condit
 @pytest.mark.parametrize('password, expected', test_cases_3)
 def test_validator_three(password, expected):
     validator = PasswordValidator()
-    validator.add_rule(has_more_than_or_equal_n_chars, 16)
+    validator.add_rule(create_has_more_than_n_chars_rule(16))
     validator.add_rule(has_a_capital)
     validator.add_rule(has_a_underscore)
     assert validator.validate(password) is expected
@@ -76,7 +76,7 @@ test_cases_4 = [('Password1_', True),   # passes all conditions
 @pytest.mark.parametrize('password, expected', test_cases_4)
 def test_validator_four(password, expected):
     validator = PasswordValidator(allowed_fails=1)
-    validator.add_rule(has_more_than_or_equal_n_chars, 8)
+    validator.add_rule(create_has_more_than_n_chars_rule(8))
     validator.add_rule(has_a_capital)
     validator.add_rule(has_a_number)
     validator.add_rule(has_a_underscore)
