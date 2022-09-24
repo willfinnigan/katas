@@ -1,4 +1,4 @@
-from mars_rover.src.commands import Move, RotateLeft, RotateRight
+from mars_rover.src.commands import Move, RotateLeft, RotateRight, NotACommand
 from mars_rover.src.world import World
 
 
@@ -11,7 +11,7 @@ class MarsRoverController:
 
     def input(self, cmd):
         for l in cmd:
-            command = self.commands[l]
+            command = self.commands.get(l, NotACommand())
             self.execute(command)
 
     def execute(self, command):

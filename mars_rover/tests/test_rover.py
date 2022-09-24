@@ -112,6 +112,12 @@ class Test_Mars_Rover():
         controller.input(cmd)
         assert rover.get_position() == '9:0:W'
 
+    def test_no_command_issues_for_other_letters(self):
+        rover = MarsRover()
+        controller = MarsRoverController(rover)
+        cmd = 'POIUYTEWQ'
+        controller.input(cmd)
+        assert rover.get_position() == '0:0:N'
 
 
 

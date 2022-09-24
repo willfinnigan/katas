@@ -4,13 +4,8 @@ from mars_rover.src.movements import move_north, move_east, move_south, move_wes
 class Command(ABC):
 
     @abstractmethod
-    def __init__(self, rover):
-        self.rover = rover
-
-    @abstractmethod
     def execute(self):
         pass
-
 
 class RotateLeft(Command):
 
@@ -22,6 +17,7 @@ class RotateLeft(Command):
             return
         end_direction = self.rover.compass.pop(3)
         self.rover.compass = [end_direction] + self.rover.compass
+
 
 class RotateRight(Command):
 
@@ -59,3 +55,9 @@ class Move(Command):
         d = self.rover.get_direction()
         move = self.movements[d]
         return move
+
+
+class NotACommand(Command):
+
+    def execute(self):
+        Exception('Error - not a command')
