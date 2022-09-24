@@ -1,4 +1,5 @@
 from mars_rover.src.commands import Move, RotateLeft, RotateRight
+from mars_rover.src.world import World
 
 
 class MarsRoverController:
@@ -19,14 +20,17 @@ class MarsRoverController:
 
 class MarsRover:
 
-    def __init__(self):
-
+    def __init__(self, world=World()):
         self.compass = ['N', 'E', 'S', 'W']
-        self.x = 0
-        self.y = 0
+        self.x, self.y = 0, 0
+        self.world = world
+        self.crashed = False
 
     def get_position(self):
-        return f"{self.x}:{self.y}:{self.get_direction()}"
+        position = f"{self.x}:{self.y}:{self.get_direction()}"
+        if self.crashed:
+            position = 'O:' + position
+        return position
 
     def get_direction(self):
         # The direction is the first point
